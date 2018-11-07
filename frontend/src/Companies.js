@@ -8,7 +8,7 @@ class Companies extends Component {
   constructor(props) {
     super(props);
     this.state = { companies: [] };
-    this.searchCompanies = this.searchCompanies.bind(this);
+    // this.searchCompanies = this.searchCompanies.bind(this);
   }
 
   async componentDidMount() {
@@ -18,7 +18,7 @@ class Companies extends Component {
     this.setState({ companies });
   }
 
-  async searchCompanies(search) {
+  searchCompanies = async (search) => {
     let companies = await JoblyApi.getCompanies(search);
     this.setState({ companies });
   }
