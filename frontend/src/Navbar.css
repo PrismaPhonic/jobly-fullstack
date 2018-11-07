@@ -1,0 +1,8 @@
+.Navlink {
+  padding: 10px;
+}
+
+a.active {
+  color: white;
+  background-color: grey;
+}
