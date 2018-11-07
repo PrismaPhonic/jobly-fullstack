@@ -26,7 +26,7 @@ class JoblyApi {
 
     try {
       return (await q).data;
-    } catch(err) {
+    } catch (err) {
       console.error("API Error:", err.response);
       let message = err.response.data.message;
       throw Array.isArray(message) ? message : [message];
@@ -34,17 +34,17 @@ class JoblyApi {
   }
 
   /** get a list of companies */
-  static async getCompanies() {
-    let res = await this.request(`companies`);
+  static async getCompanies(search) {
+    let res = await this.request(`companies`, { search });
     return res.companies;
   }
-  
+
   /** get a company by handle */
   static async getCompany(handle) {
     let res = await this.request(`companies/${handle}`);
     return res.company;
   }
-  
+
   /** get a list of jobs */
   static async getJobs(handle) {
     let res = await this.request(`jobs`);
