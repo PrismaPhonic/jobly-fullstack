@@ -12,6 +12,9 @@ class Login extends Component {
       last_name: '',
       showSignup: false
     }
+
+    this.handleClick = this.handleClick.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   handleClick(show) {
