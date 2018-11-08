@@ -1,4 +1,4 @@
-.Navbar {
+.JoblyNavbar {
   background-color: white;
   box-shadow: 2px 2px 2px lightgrey;
   padding: 8px;
@@ -8,7 +8,7 @@
   padding: 10px;
 }
 
-a.active {
-  color: white;
-  background-color: grey;
-}
+/* a.active {
+  color: #ecf0f1;
+  background-color: #2C3E50;
+} */
