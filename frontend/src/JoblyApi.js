@@ -33,7 +33,7 @@ class JoblyApi {
 
   /** GET request to login route to request an auth token */
   static async authUser({ username, password }) {
-    try{
+    try {
       const res = await this.request(`login`, { username, password }, 'post');
       return res;
     } catch (err) {
@@ -55,6 +55,16 @@ class JoblyApi {
   static async createUser({ username, password, first_name, last_name, email }) {
     try {
       const res = await this.request(`users`, { username, password, first_name, last_name, email }, 'post')
+      return res;
+    } catch (err) {
+      return { errors: err };
+    }
+  }
+
+  /** PATCH request to /users  */
+  static async updateUser({ username, password, first_name, last_name, email }) {
+    try {
+      const res = await this.request(`users/${username}`, { password, first_name, last_name, email }, 'patch')
       return res;
     } catch (err) {
       return { errors: err };

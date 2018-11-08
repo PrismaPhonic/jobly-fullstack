@@ -1,26 +1,32 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom'
-import { Button, Form, Input } from 'reactstrap';
+import { Alert, Button, Form, Input } from 'reactstrap';
+import JoblyApi from './JoblyApi';
 import './Profile.css';
 
 class Profile extends Component {
   constructor(props) {
     super(props);
-    this.state = {...this.props.currentUser}
-
-    this.handleClick = this.handleClick.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+    this.state = {
+      ...this.props.currentUser,
+      password: '',
+      userUpdated: false,
+      errors: []
+    }
   }
 
-  handleClick(evt) {
-    console.log(`clicked ${evt.target}`);
-  }
-  handleSubmit(evt) {
+  handleSubmit = async (evt) => {
     evt.preventDefault();
+    const resp = await JoblyApi.updateUser(this.state);
+    if (resp.errors) {
+      this.setState({
+        errors: resp.errors
+      })
+    }
   }
 
   // Control input fields
-  handleChange(evt) {
+  handleChange = (evt) => {
     this.setState({ [evt.target.name]: evt.target.value })
   }
 
@@ -42,30 +48,30 @@ class Profile extends Component {
           value={this.state.first_name}
           onChange={this.handleChange}
           type='text' />
-        
+
         <label htmlFor="last_name">Last Name</label>
         <Input id="last_name"
           name="last_name"
           value={this.state.last_name}
           type='text'
           onChange={this.handleChange} />
-        
+
         <label htmlFor="email">Email</label>
         <Input id="email"
           name="email"
           value={this.state.email}
           type='email'
           onChange={this.handleChange} />
-        
+
         <label htmlFor="password">Enter Password</label>
         <Input id="password"
           name="password"
           value={this.state.password}
           type='password'
           onChange={this.handleChange} />
-        
-        <br/>
 
+        <br />
+        {this.state.errors.map(error => <Alert key={error} color="warning">{error}</Alert>)}
         <Button color="primary">Save</Button>
       </Form>
     );
