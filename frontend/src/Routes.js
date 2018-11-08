@@ -6,8 +6,7 @@ import Company from './Company';
 import Jobs from './Jobs';
 import Profile from './Profile';
 import Login from './Login';
-
-
+import ResourceNotFound from './404';
 
 class Routes extends Component {
   render() {

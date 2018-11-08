@@ -7,23 +7,38 @@ import Search from './Search';
 class Companies extends Component {
   constructor(props) {
     super(props);
-    this.state = { companies: [] };
+    this.state = {
+      companies: [],
+      loading: true,
+      error: null
+    };
   }
 
   /** make get request to /companies */
   async componentDidMount() {
-    let companies = await JoblyApi.getCompanies();
-
-    this.setState({ companies });
+    try {
+      let companies = await JoblyApi.getCompanies();
+      if (companies.length === 0) throw new Error('Server has died horribly. :(')
+      this.setState({ companies, loading: false });
+    } catch (err) {
+      this.setState({ error: err.message })
+    }
   }
 
   // get companies filtered by search value
   searchCompanies = async (search) => {
-    let companies = await JoblyApi.getCompanies(search);
-    this.setState({ companies });
+    try {
+      let companies = await JoblyApi.getCompanies(search);
+      if (companies.length === 0) throw new Error('Your search did not return any companies')
+      this.setState({ companies, loading: false });
+    } catch (err) {
+      this.setState({ error: err.message })
+    }
   }
 
   render() {
+    if (this.state.error) return <h1>{this.state.error}</h1>
+    if (this.state.loading) return <h1>Loading...</h1>
     return (
       <div className="Companies">
         <Search search={this.searchCompanies} />
