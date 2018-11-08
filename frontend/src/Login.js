@@ -59,19 +59,18 @@ class Login extends Component {
           value={this.state.first_name}
           onChange={this.handleChange}
           type='text' />
-        <br></br>
+
         <label htmlFor="last_name">Last Name</label>
         <Input id="last_name" name="last_name"
           value={this.state.last_name}
           type='text'
           onChange={this.handleChange} />
-        <br></br>
+          
         <label htmlFor="email">Email</label>
         <Input id="email" name="email"
           value={this.state.email}
           type='email'
           onChange={this.handleChange} />
-        <br></br>
       </React.Fragment>
     );
   }

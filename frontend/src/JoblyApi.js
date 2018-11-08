@@ -34,13 +34,21 @@ class JoblyApi {
   }
 
   static async authUser({ username, password }) {
-    const res = await this.request(`login`, { username, password }, 'post');
-    return res;
+    try{
+      const res = await this.request(`login`, { username, password }, 'post');
+      return res;
+    } catch (err) {
+      return { errors: err };
+    }
   }
 
   static async getUser(username, _token) {
-    const res = await this.request(`users/${username}`, { _token });
-    return res.user;
+    try {
+      const res = await this.request(`users/${username}`, { _token });
+      return res.user;
+    } catch (err) {
+      return { errors: err }
+    }
   }
 
   static async createUser({ username, password, first_name, last_name, email }) {

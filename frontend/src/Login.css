@@ -4,6 +4,9 @@
   margin: auto; 
 }
 
+.Login label {
+  padding-top: 5px;
+}
 .LoginForm {
   background-color: white;
   border: 1px solid #dfdfdf;
