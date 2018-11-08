@@ -4,13 +4,9 @@ import Routes from './Routes';
 import './App.css';
 import jwt from 'jsonwebtoken'
 import JoblyApi from './JoblyApi';
+import { withRouter } from 'react-router-dom';
 
-const testuser = {
-  username: "testuser",
-  first_name: "Tom",
-  last_name: "Jobly",
-  email: "tomjobly@jobly.com"
-}
+//
 
 /**
  * Authorization process:
@@ -47,11 +43,10 @@ class App extends Component {
    */
   authenticate = async (data) => {
     const resp = await JoblyApi.authUser(data);
-    if (resp.errors) {
-      console.log('errors', resp.errors);
-      return resp;
-    }
+    // if we get an error from server, do not call setCurrentUser
+    if (resp.errors) return resp;
     await this.setCurrentUser(resp.token);
+    return resp;
   }
 
   /**
@@ -59,28 +54,32 @@ class App extends Component {
    * a token from the server upon Sign Up 
    */
   register = async (data) => {
-    const resp = await JoblyApi.createUser(data)
-    if (resp.errors) {
-      console.log('errors', resp.errors);
-      return resp;
-    }
-    await this.setCurrentUser(resp.token)
+    const resp = await JoblyApi.createUser(data);
+    // if we get an error from server, do not call setCurrentUser
+    if (resp.errors) return resp;
+    await this.setCurrentUser(resp.token);
+    return resp;
   }
 
   /**
-   * Logs out user by clearing local storage and setting state back to null
+   * Logs out user by removing token from local storage,
+   * Sets currentUser in state to null,
+   * Pushes home page to history
    */
-  logout() {
-    localStorage.clear();
-    this.setState({ currentUser: null });
+  logout = () => {
+    // remove token from storage
+    localStorage.removeItem('token');
+
+    this.setState({ currentUser: null }, () => {
+      this.props.history.push('/');
+    });
   }
 
   /**
    * setCurrentUser is a helper function to get user details
    */
   async setCurrentUser(token) {
-    const payload = jwt.decode(token);
-    const { username } = payload;
+    const { username } = jwt.decode(token);
     const currentUser = await JoblyApi.getUser(username, token);
     localStorage.setItem('token', token);
     this.setState({ currentUser });
@@ -89,6 +88,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        {/* <pre>{JSON.stringify(this.props,null,4)}</pre> */}
         <JoblyNavbar logout={this.logout} currentUser={this.state.currentUser} />
         <Routes
           currentUser={this.state.currentUser}
@@ -99,4 +99,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);

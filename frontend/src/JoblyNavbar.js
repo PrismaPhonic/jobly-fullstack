@@ -4,6 +4,13 @@ import { NavLink } from 'react-router-dom';
 import './JoblyNavbar.css';
 
 class JoblyNavbar extends Component {
+
+  /** prevent link from refreshing and call the logout method */
+  handleClick = async (evt) => {
+    evt.preventDefault();
+    this.props.logout();
+  }
+
   render() {
     /** NavLink for '/' is given 'exact' to correctly toggle .active */
     return (
@@ -22,7 +29,7 @@ class JoblyNavbar extends Component {
           <NavItem>
 
             {this.props.currentUser ?
-              <NavLink className="nav-link" onClick={this.props.logout} to='/'>Log Out</NavLink> :
+              <a className="nav-link" onClick={this.handleClick} href="/">Log Out</a> :
               <NavLink className="nav-link" to='/login'>Log In</NavLink>
             }
           </NavItem>

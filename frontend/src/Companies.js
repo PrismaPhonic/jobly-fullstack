@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-// import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import JoblyApi from './JoblyApi';
 import CompanyCard from './CompanyCard';
 import Search from './Search';
-import { Container } from 'reactstrap';
 import './Companies.css';
 
 class Companies extends Component {
@@ -39,6 +38,7 @@ class Companies extends Component {
   }
 
   render() {
+    if (this.props.currentUser === null) return <Redirect to='/login' />
     if (this.state.error) return <h1>{this.state.error}</h1>
     if (this.state.loading) return (
       <div><Search handleSearch={this.searchCompanies} />

@@ -5,9 +5,7 @@ const BASE_URL = "http://localhost:3001";
 class JoblyApi {
   static async request(endpoint, params = {}, verb = "get") {
     // for now, hardcode a token for user "testuser"
-    let _token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc" +
-      "3R1c2VyIiwiaXNfYWRtaW4iOmZhbHNlLCJpYXQiOjE1NDE1NjQ2Nzl9.LYDHSkl81gEm" +
-      "7jfHv9wJhzD4ndpuBkSzBan8Nirb6UY";
+    let _token = localStorage.getItem("token")
 
     console.debug("API Call:", endpoint, params, verb);
 
@@ -33,6 +31,7 @@ class JoblyApi {
     }
   }
 
+  /** GET request to login route to request an auth token */
   static async authUser({ username, password }) {
     try{
       const res = await this.request(`login`, { username, password }, 'post');
@@ -42,6 +41,7 @@ class JoblyApi {
     }
   }
 
+  /** GET request to /users/:username with token to request user details */
   static async getUser(username, _token) {
     try {
       const res = await this.request(`users/${username}`, { _token });
@@ -51,6 +51,7 @@ class JoblyApi {
     }
   }
 
+  /** POST request to /users  */
   static async createUser({ username, password, first_name, last_name, email }) {
     try {
       const res = await this.request(`users`, { username, password, first_name, last_name, email }, 'post')

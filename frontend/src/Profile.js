@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom'
 import { Button, Form, Input } from 'reactstrap';
 import './Profile.css';
 
@@ -24,6 +25,7 @@ class Profile extends Component {
   }
 
   render() {
+    if (this.props.currentUser === null) return <Redirect to='/login' />
     return (
       <Form onSubmit={this.handleSubmit} className="Profile mt-5 p-3">
         <label htmlFor="username">Username</label>

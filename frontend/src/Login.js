@@ -32,29 +32,34 @@ class Login extends Component {
     })
   }
 
-  // Handle form submission gracefully
+  /** 
+   * Handle Login/SignUp form submissions
+   * Also handle minimum password requirements
+   */
   async handleSubmit(evt) {
     evt.preventDefault();
     const { username, password, first_name, last_name, email } = this.state;
 
     // if password is not long enough set error on state
-    if (password.length < MIN_PASSWORD_LENGTH) {
+    if (this.state.showSignup && password.length < MIN_PASSWORD_LENGTH) {
       this.setState({errors: ["Password must at least 5 characters in legnth"]});
-    } else {
-      // Are we logging in or signing up?
-      let resp;
-      if (this.state.showSignup) {
-        resp = await this.props.register({ username, password, first_name, last_name, email });
-      } else {
-        resp = await this.props.authenticate({ username, password });
-      }
-      // if we got back an array of errors, let's set state to alert user
-      if (resp.errors)
-        this.setState({ errors: resp.errors });
+      return;
     }
+
+    
+    // If signing up, call register
+    // If logging in, call authenticate
+    let resp;
+    if (this.state.showSignup) {
+      resp = await this.props.register({ username, password, first_name, last_name, email });
+    } else {
+      resp = await this.props.authenticate({ username, password });
+    }
+    // if we got back an array of errors, let's set state to alert user
+    if (resp.errors) this.setState({ errors: resp.errors });
   }
 
-  // Control input fields
+  /** Control input fields */
   handleChange(evt) {
     this.setState({ [evt.target.name]: evt.target.value })
   }
