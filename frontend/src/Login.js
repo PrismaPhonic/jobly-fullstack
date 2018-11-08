@@ -71,21 +71,23 @@ class Login extends Component {
     return (
       <div className="Login mt-5">
         <ButtonGroup className="d-flex justify-content-end">
-          <Button 
+          <Button
             className="Button"
             color="info"
-            onClick={(evt) => this.handleClick(false)}>Login</Button>
-          <Button 
+            onClick={(evt) => this.handleClick(false)}
+            active={!this.state.showSignup ? true : false}>Login</Button>
+          <Button
             className="Button btn-primary"
             color="info"
-            onClick={(evt) => this.handleClick(true)}>Signup</Button>
+            onClick={(evt) => this.handleClick(true)}
+            active={this.state.showSignup ? true : false}>Signup</Button>
         </ButtonGroup>
         <Form onSubmit={this.handleSubmit} className="LoginForm p-3">
           <label htmlFor="username">Username</label>
           <Input id="username" name="username"
-          value={this.state.username}
-          onChange={this.handleChange}
-          type='text' />
+            value={this.state.username}
+            onChange={this.handleChange}
+            type='text' />
 
           <label htmlFor="password">Password</label>
           <Input id="password" name="password"

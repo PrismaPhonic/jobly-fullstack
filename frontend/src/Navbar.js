@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import './Navbar.css';
 
-class Navbar extends Component {
+class JoblyNavbar extends Component {
   render() {
     /** NavLink for '/' is given 'exact' to correctly toggle .active */
     return (
-      <nav className="Navbar">
+      <nav className="JoblyNavbar">
         <NavLink exact className="Navlink" to='/'>Jobly</NavLink>
         <NavLink className="Navlink" to='/companies'>Companies</NavLink>
         <NavLink className="Navlink" to='/jobs'>Jobs</NavLink>
@@ -21,4 +21,4 @@ class Navbar extends Component {
   }
 }
 
-export default Navbar;
+export default JoblyNavbar;
