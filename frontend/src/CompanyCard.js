@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { Card, CardBody, CardTitle, CardImg } from 'reactstrap';
 import './CompanyCard.css'
 
 class CompanyCard extends Component {
@@ -9,11 +10,11 @@ class CompanyCard extends Component {
     const { name, handle, description, logo_url } = this.props.company;
     return (
       <Link to={`/companies/${handle}`}>
-        <div className="CompanyCard">
-          <h3>{name}</h3>
-          <p>{description}</p>
-          <img src={logo_url} alt="Logo Not Found" ></img>
-        </div>
+        <Card className="CompanyCard my-3">
+          <CardTitle>{name}</CardTitle>
+          <CardBody><p>{description}</p></CardBody>
+          <CardImg src={logo_url} alt="Logo Not Found" ></CardImg>
+        </Card>
       </Link>
     );
   }

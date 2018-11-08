@@ -28,7 +28,6 @@ class Jobs extends Component {
     return (
       <div className="Jobs">
         <Search search={this.searchJobs} />
-        <h1>This is a list of all the Jobs</h1>
         {this.state.jobs.map(job => <JobCard key={job.id} job={job} />)}
       </div>
     );

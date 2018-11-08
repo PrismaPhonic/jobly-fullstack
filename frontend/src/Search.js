@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { Button, Form, FormControl, Input } from 'reactstrap'
 import './Search.css';
 
 class Search extends Component {
@@ -26,19 +27,34 @@ class Search extends Component {
   }
 
   render() {
+    // return (
+    //   <form className="Search">
+    //     <input
+    //       type="text"
+    //       placeholder="Enter search term..."
+    //       id="search"
+    //       name="search"
+    //       value={this.state.search}
+    //       onChange={this.handleChange} />
+    //     <button onClick={this.handleClick}>
+    //       Submit
+    //     </button>
+    //   </form>
+
+    // );
     return (
-      <form className="Search">
-        <input
+      <Form inline className="Search my-4 row justify-content-center">
+        <Input
           type="text"
-          placeholder="Enter search term..."
           id="search"
           name="search"
           value={this.state.search}
-          onChange={this.handleChange} />
-        <button onClick={this.handleClick}>
-          Submit
-        </button>
-      </form>
+          onChange={this.handleChange}
+          className="form-control"
+        />
+
+        <Button color="primary">Search</Button>
+      </Form>
     );
   }
 }

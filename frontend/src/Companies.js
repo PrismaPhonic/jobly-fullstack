@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import JoblyApi from './JoblyApi';
 import CompanyCard from './CompanyCard';
 import Search from './Search';
+import { Container } from 'reactstrap';
+import './Companies.css';
 
 class Companies extends Component {
   constructor(props) {
@@ -42,7 +44,6 @@ class Companies extends Component {
     return (
       <div className="Companies">
         <Search search={this.searchCompanies} />
-        <h1>This is a list of all the companies</h1>
         {this.state.companies.map(company => <CompanyCard key={company.handle} company={company} />)}
       </div>
     );
