@@ -40,10 +40,13 @@ class Companies extends Component {
 
   render() {
     if (this.state.error) return <h1>{this.state.error}</h1>
-    if (this.state.loading) return <h1>Loading...</h1>
+    if (this.state.loading) return (
+      <div><Search handleSearch={this.searchCompanies} />
+      <h3>Loading...</h3></div>
+    );
     return (
       <div className="Companies">
-        <Search search={this.searchCompanies} />
+        <Search handleSearch={this.searchCompanies} />
         {this.state.companies.map(company => <CompanyCard key={company.handle} company={company} />)}
       </div>
     );
