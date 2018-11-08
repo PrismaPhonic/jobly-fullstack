@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Form, Input, Button, ButtonGroup } from 'reactstrap';
+import { Redirect } from 'react-router-dom';
 import './Login.css';
 
 class Login extends Component {
@@ -33,9 +34,10 @@ class Login extends Component {
 
     // Are we logging in or signing up?
     if (this.state.showSignup) {
+      console.log('submitted signup');
       this.props.register({ username, password, first_name, last_name, email });
     } else {
-      this.props.authenticate({username, password});
+      this.props.authenticate({ username, password });
     }
   }
 
@@ -77,6 +79,7 @@ class Login extends Component {
   * to toggle the login and sign up forms 
   */
   render() {
+    if (this.props.currentUser) return <Redirect to='/' />
     return (
       <div className="Login mt-5">
         <ButtonGroup className="d-flex justify-content-end">

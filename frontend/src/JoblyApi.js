@@ -33,14 +33,19 @@ class JoblyApi {
     }
   }
 
-  static async authUser({username, password}) {
-    const res = await this.request(`login`, {username, password}, 'post');
+  static async authUser({ username, password }) {
+    const res = await this.request(`login`, { username, password }, 'post');
     return res;
   }
 
   static async getUser(username, _token) {
-    const res = await this.request(`users/${username}`, {_token});
+    const res = await this.request(`users/${username}`, { _token });
     return res.user;
+  }
+
+  static async createUser({ username, password, first_name, last_name, email }) {
+    const res = await this.request(`users`, { username, password, first_name, last_name, email }, 'post')
+    return res;
   }
 
   /** get a list of companies */

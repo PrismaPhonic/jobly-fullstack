@@ -36,7 +36,7 @@ class App extends Component {
 
   async componentDidMount() {
     const token = localStorage.getItem('token');
-    console.log('Token found, setting current user',token);
+    console.log('Token found, setting current user', token);
     await this.setCurrentUser(token);
   }
 
@@ -54,7 +54,16 @@ class App extends Component {
    * a token from the server upon Sign Up 
    */
   register = async (data) => {
-    const {username, password, first_name, last_name, email} = data;
+    const { token } = await JoblyApi.createUser(data)
+    await this.setCurrentUser(token)
+  }
+
+  /**
+   * Logs out user by clearing local storage and setting state back to null
+   */
+  logout() {
+    localStorage.clear();
+    this.setState({ currentUser: null });
   }
 
   /**
@@ -64,15 +73,16 @@ class App extends Component {
     const payload = jwt.decode(token);
     const { username } = payload;
     const currentUser = await JoblyApi.getUser(username, token);
+    localStorage.setItem('token', token);
     this.setState({ currentUser });
   }
 
   render() {
     return (
       <div className="App">
-        <JoblyNavbar currentUser={this.state.currentUser} />
-        <Routes 
-          currentUser={this.state.currentUser} 
+        <JoblyNavbar logout={this.logout} currentUser={this.state.currentUser} />
+        <Routes
+          currentUser={this.state.currentUser}
           authenticate={this.authenticate}
           register={this.register} />
       </div>

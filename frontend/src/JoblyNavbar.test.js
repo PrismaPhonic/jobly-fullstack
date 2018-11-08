@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Navbar from './Navbar';
+import JoblyNavbar from './JoblyNavbar';
 
 it('renders without crashing', function () {
-  shallow(<Navbar />);
+  shallow(<JoblyNavbar />);
 });

@@ -21,10 +21,10 @@ class JoblyNavbar extends Component {
           </NavItem>
           <NavItem>
 
-        {this.props.currentUser ? 
-          <NavLink className="nav-link" to='/logout'>Log Out</NavLink> :   
-          <NavLink className="nav-link" to='/login'>Log In</NavLink>
-        }
+            {this.props.currentUser ?
+              <NavLink className="nav-link" onClick={this.props.logout} to='/'>Log Out</NavLink> :
+              <NavLink className="nav-link" to='/login'>Log In</NavLink>
+            }
           </NavItem>
         </Nav>
       </Navbar>
