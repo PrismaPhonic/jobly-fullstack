@@ -6,11 +6,12 @@ import Company from './Company';
 import Jobs from './Jobs';
 import Profile from './Profile';
 import Login from './Login';
+import { Container } from 'reactstrap';
 
 class Routes extends Component {
   render() {
     return (
-      <div className="Routes">
+      <Container className="Routes justify-content-center">
         <Switch>
           <Route exact path="/"
             render={() => <Home />} />
@@ -21,11 +22,11 @@ class Routes extends Component {
           <Route exact path="/jobs"
             render={() => <Jobs />} />
           <Route exact path="/profile"
-            render={() => <Profile />} />
+            render={() => <Profile currentUser={this.props.currentUser}/>} />
           <Route exact path="/login"
             render={() => <Login />} />
         </Switch>
-      </div>
+      </Container>
     );
   }
 }

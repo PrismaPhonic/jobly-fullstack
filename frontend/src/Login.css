@@ -1,0 +1,19 @@
+.Login {
+  display: inline-block;
+  min-width: 500px;
+  margin: auto; 
+}
+
+.LoginForm {
+  background-color: white;
+  border: 1px solid #dfdfdf;
+}
+
+.ButtonGroup {
+  display: block;
+}
+
+.Button {
+  border-bottom-left-radius: 0%;
+  border-bottom-right-radius: 0%;
+}

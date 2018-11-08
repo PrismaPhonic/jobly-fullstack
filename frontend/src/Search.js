@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Form, FormControl, Input } from 'reactstrap'
+import { Button, Form, Input } from 'reactstrap'
 import './Search.css';
 
 class Search extends Component {
@@ -21,10 +21,9 @@ class Search extends Component {
     this.props.handleSearch(this.state.search);
   }
 
-  // control input
+  // control input and filter results as letters are typed
   handleChange(evt) {
-    this.setState({ [evt.target.name]: evt.target.value })
-    this.props.handleSearch(this.state.search);
+    this.setState({ [evt.target.name]: evt.target.value }) 
   }
 
   // prevent default and call search function passed from 
@@ -35,21 +34,6 @@ class Search extends Component {
   }
 
   render() {
-    // return (
-    //   <form className="Search">
-    //     <input
-    //       type="text"
-    //       placeholder="Enter search term..."
-    //       id="search"
-    //       name="search"
-    //       value={this.state.search}
-    //       onChange={this.handleChange} />
-    //     <button onClick={this.handleClick}>
-    //       Submit
-    //     </button>
-    //   </form>
-
-    // );
     return (
       <Form onSubmit={this.handleSubmit} inline className="Search my-4 row justify-content-center">
         <Input

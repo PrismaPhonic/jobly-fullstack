@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-// import { Link } from 'react-router-dom';
+import { Form, Input, Button, ButtonGroup } from 'reactstrap';
+import './Login.css';
 
 class Login extends Component {
   constructor(props) {
@@ -34,54 +35,67 @@ class Login extends Component {
     this.setState({ [evt.target.name]: evt.target.value })
   }
 
-  render() {
-    // Renders username and password input fields regardless,
-    // and if showSignup is true, shows additional signup fields
+
+  /** helper function returns the fields for the Sign Up form */
+  signUpFields() {
     return (
-      <div className="Login">
+      <React.Fragment>
+        <label htmlFor="first_name">First Name</label>
+        <Input id="first_name" name="first_name"
+          value={this.state.first_name}
+          onChange={this.handleChange}
+          type='text' />
         <br></br>
-        <button onClick={(evt) => this.handleClick(false)}>Login</button>
-        <button onClick={(evt) => this.handleClick(true)}>Signup</button>
-        <form className="LoginSignupForm" onSubmit={this.handleSubmit}>
-          <br />
+        <label htmlFor="last_name">Last Name</label>
+        <Input id="last_name" name="last_name"
+          value={this.state.last_name}
+          type='text'
+          onChange={this.handleChange} />
+        <br></br>
+        <label htmlFor="email">Email</label>
+        <Input id="email" name="email"
+          value={this.state.email}
+          type='email'
+          onChange={this.handleChange} />
+        <br></br>
+      </React.Fragment>
+    );
+  }
+
+
+  /* 
+  * Renders a login form. Buttons are provided
+  * to toggle the login and sign up forms 
+  */
+  render() {
+    return (
+      <div className="Login mt-5">
+        <ButtonGroup className="d-flex justify-content-end pt-3">
+          <Button 
+            className="Button"
+            color="info"
+            onClick={(evt) => this.handleClick(false)}>Login</Button>
+          <Button 
+            className="Button btn-primary"
+            color="info"
+            onClick={(evt) => this.handleClick(true)}>Signup</Button>
+        </ButtonGroup>
+        <Form onSubmit={this.handleSubmit} className="LoginForm p-3">
           <label htmlFor="username">Username</label>
-          <input id="username" name="username"
-            value={this.state.username}
-            onChange={this.handleChange}
-            type='text' />
-          <br />
+          <Input id="username" name="username"
+          value={this.state.username}
+          onChange={this.handleChange}
+          type='text' />
 
           <label htmlFor="password">Password</label>
-          <input id="password" name="password"
+          <Input id="password" name="password"
             value={this.state.password}
             type='password'
             onChange={this.handleChange} />
+          {this.state.showSignup ? this.signUpFields() : ''}
           <br />
-          {this.state.showSignup ?
-            <React.Fragment>
-              <label htmlFor="first_name">First Name</label>
-              <input id="first_name" name="first_name"
-                value={this.state.first_name}
-                onChange={this.handleChange}
-                type='text'></input>
-              <br></br>
-              <label htmlFor="last_name">Last Name</label>
-              <input id="last_name" name="last_name"
-                value={this.state.last_name}
-                type='text'
-                onChange={this.handleChange} />
-              <br></br>
-              <label htmlFor="email">Email</label>
-              <input id="email" name="email"
-                value={this.state.email}
-                type='email'
-                onChange={this.handleChange} />
-              <br></br>
-            </React.Fragment> :
-            ''
-          }
-          <button>Submit</button>
-        </form>
+          <Button color="primary">Save</Button>
+        </Form>
       </div>
     );
   }
