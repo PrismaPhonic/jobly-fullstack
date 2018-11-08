@@ -70,7 +70,7 @@ class Login extends Component {
   render() {
     return (
       <div className="Login mt-5">
-        <ButtonGroup className="d-flex justify-content-end pt-3">
+        <ButtonGroup className="d-flex justify-content-end">
           <Button 
             className="Button"
             color="info"
