@@ -11,7 +11,7 @@ import { Container } from 'reactstrap';
 class Routes extends Component {
   render() {
     return (
-      <Container className="Routes justify-content-center">
+      <Container className="Routes justify-content-center pt-3">
         <Switch>
           <Route exact path="/"
             render={() => <Home />} />
