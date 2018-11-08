@@ -14,7 +14,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Navbar />
+        <Navbar currentUser={testuser} />
         <Routes currentUser={testuser} />
       </div>
     );
