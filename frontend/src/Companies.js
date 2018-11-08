@@ -42,7 +42,7 @@ class Companies extends Component {
     if (this.state.error) return <h1>{this.state.error}</h1>
     if (this.state.loading) return (
       <div><Search handleSearch={this.searchCompanies} />
-      <h3>Loading...</h3></div>
+        <h3>Loading...</h3></div>
     );
     return (
       <div className="Companies">

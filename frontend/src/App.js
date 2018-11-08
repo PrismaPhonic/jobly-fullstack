@@ -26,7 +26,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentUser: null
+      currentUser: null,
+      loading: true
     }
   }
 
@@ -34,6 +35,7 @@ class App extends Component {
     const token = localStorage.getItem('token');
     if (token) {
       await this.setCurrentUser(token);
+      this.setState({ loading: false });
     }
   }
 
@@ -86,14 +88,20 @@ class App extends Component {
   }
 
   render() {
+    // let's make sure we don't render routes until we have checked if 
+    // the user is already logged in
     return (
       <div className="App">
         {/* <pre>{JSON.stringify(this.props,null,4)}</pre> */}
         <JoblyNavbar logout={this.logout} currentUser={this.state.currentUser} />
-        <Routes
-          currentUser={this.state.currentUser}
-          authenticate={this.authenticate}
-          register={this.register} />
+        {!this.state.loading ?
+          <Routes
+            currentUser={this.state.currentUser}
+            authenticate={this.authenticate}
+            register={this.register} /> :
+          ''
+        }
+
       </div>
     );
   }

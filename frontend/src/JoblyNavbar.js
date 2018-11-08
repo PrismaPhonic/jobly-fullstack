@@ -17,22 +17,26 @@ class JoblyNavbar extends Component {
       <Navbar color="light" light className="JoblyNavbar">
         <NavLink exact className="navbar-brand" to='/'>Jobly</NavLink>
         <Nav className="ml-auto">
-          <NavItem>
-            <NavLink className="nav-link" to='/companies'>Companies</NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink className="nav-link" to='/jobs'>Jobs</NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink className="nav-link" to='/profile'>Profile</NavLink>
-          </NavItem>
-          <NavItem>
-
-            {this.props.currentUser ?
-              <a className="nav-link" onClick={this.handleClick} href="/">Log Out</a> :
+          {this.props.currentUser ?
+            <React.Fragment>
+              <NavItem>
+                <NavLink className="nav-link" to='/companies'>Companies</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink className="nav-link" to='/jobs'>Jobs</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink className="nav-link" to='/profile'>Profile</NavLink>
+              </NavItem>
+              <NavItem>
+                <a className="nav-link" onClick={this.handleClick} href="/">Log Out</a>
+              </NavItem>
+            </React.Fragment> :
+            <NavItem>
               <NavLink className="nav-link" to='/login'>Log In</NavLink>
-            }
-          </NavItem>
+            </NavItem>
+          }
+
         </Nav>
       </Navbar>
     );
