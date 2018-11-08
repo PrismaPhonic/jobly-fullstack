@@ -16,6 +16,7 @@ class Login extends Component {
 
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   // Handles login and signup button and flips state
@@ -28,6 +29,14 @@ class Login extends Component {
   // Handle form submission gracefully
   handleSubmit(evt) {
     evt.preventDefault();
+    const { username, password, first_name, last_name, email } = this.state;
+
+    // Are we logging in or signing up?
+    if (this.state.showSignup) {
+      this.props.register({ username, password, first_name, last_name, email });
+    } else {
+      this.props.authenticate({username, password});
+    }
   }
 
   // Control input fields
@@ -96,7 +105,7 @@ class Login extends Component {
             onChange={this.handleChange} />
           {this.state.showSignup ? this.signUpFields() : ''}
           <br />
-          <Button color="primary">Save</Button>
+          <Button color="primary">Submit</Button>
         </Form>
       </div>
     );

@@ -22,9 +22,15 @@ class Routes extends Component {
           <Route exact path="/jobs"
             render={() => <Jobs />} />
           <Route exact path="/profile"
-            render={() => <Profile currentUser={this.props.currentUser}/>} />
+            render={() => <Profile currentUser={this.props.currentUser} />} />
           <Route exact path="/login"
-            render={() => <Login />} />
+            render={() => { 
+              return (
+                <Login 
+                  currentUser={this.props.currentUser} 
+                  authenticate={this.props.authenticate} 
+                  register={this.register} /> ) }
+              } /> 
         </Switch>
       </Container>
     );
