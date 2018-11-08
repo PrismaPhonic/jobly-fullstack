@@ -22,9 +22,11 @@ class Login extends Component {
   }
 
   // Handles login and signup button and flips state
+  // Also removes all errors
   handleClick(show) {
     this.setState({
-      showSignup: show
+      showSignup: show,
+      errors: []
     })
   }
 
@@ -65,7 +67,7 @@ class Login extends Component {
           value={this.state.last_name}
           type='text'
           onChange={this.handleChange} />
-          
+
         <label htmlFor="email">Email</label>
         <Input id="email" name="email"
           value={this.state.email}
