@@ -44,8 +44,12 @@ class JoblyApi {
   }
 
   static async createUser({ username, password, first_name, last_name, email }) {
-    const res = await this.request(`users`, { username, password, first_name, last_name, email }, 'post')
-    return res;
+    try {
+      const res = await this.request(`users`, { username, password, first_name, last_name, email }, 'post')
+      return res;
+    } catch (err) {
+      return { errors: err };
+    }
   }
 
   /** get a list of companies */

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Input, Button, ButtonGroup } from 'reactstrap';
+import { Form, Input, Button, ButtonGroup, Alert } from 'reactstrap';
 import { Redirect } from 'react-router-dom';
 import './Login.css';
 
@@ -12,7 +12,8 @@ class Login extends Component {
       email: '',
       first_name: '',
       last_name: '',
-      showSignup: false
+      showSignup: false,
+      errors: []
     }
 
     this.handleClick = this.handleClick.bind(this);
@@ -28,17 +29,19 @@ class Login extends Component {
   }
 
   // Handle form submission gracefully
-  handleSubmit(evt) {
+  async handleSubmit(evt) {
     evt.preventDefault();
     const { username, password, first_name, last_name, email } = this.state;
 
     // Are we logging in or signing up?
+    let resp;
     if (this.state.showSignup) {
-      console.log('submitted signup');
-      this.props.register({ username, password, first_name, last_name, email });
+      resp = await this.props.register({ username, password, first_name, last_name, email });
     } else {
-      this.props.authenticate({ username, password });
+      resp = await this.props.authenticate({ username, password });
     }
+    // if we got back an array of errors, let's set state to alert user
+    if (resp.errors) this.setState({ errors: resp.errors });
   }
 
   // Control input fields
@@ -108,6 +111,7 @@ class Login extends Component {
             onChange={this.handleChange} />
           {this.state.showSignup ? this.signUpFields() : ''}
           <br />
+          {this.state.errors.map(error => <Alert key={error} color="warning">{error}</Alert>)}
           <Button color="primary">Submit</Button>
         </Form>
       </div>

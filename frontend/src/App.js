@@ -36,8 +36,9 @@ class App extends Component {
 
   async componentDidMount() {
     const token = localStorage.getItem('token');
-    console.log('Token found, setting current user', token);
-    await this.setCurrentUser(token);
+    if (token) {
+      await this.setCurrentUser(token);
+    }
   }
 
   /** 
@@ -45,8 +46,12 @@ class App extends Component {
    * a token from the server upon Log In
    */
   authenticate = async (data) => {
-    const { token } = await JoblyApi.authUser(data);
-    await this.setCurrentUser(token);
+    const resp = await JoblyApi.authUser(data);
+    if (resp.errors) {
+      console.log('errors', resp.errors);
+      return resp;
+    }
+    await this.setCurrentUser(resp.token);
   }
 
   /**
@@ -54,8 +59,12 @@ class App extends Component {
    * a token from the server upon Sign Up 
    */
   register = async (data) => {
-    const { token } = await JoblyApi.createUser(data)
-    await this.setCurrentUser(token)
+    const resp = await JoblyApi.createUser(data)
+    if (resp.errors) {
+      console.log('errors', resp.errors);
+      return resp;
+    }
+    await this.setCurrentUser(resp.token)
   }
 
   /**
