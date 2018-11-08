@@ -63,7 +63,7 @@ class User {
 
     if (duplicateCheck.rows[0]) {
       const err = new Error(
-          `There already exists a user with username '${data.username}`);
+          `There already exists a user with username '${data.username}'`);
       err.status = 409;
       throw err;
     }

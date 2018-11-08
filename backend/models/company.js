@@ -85,7 +85,7 @@ class Company {
 
     if (duplicateCheck.rows[0]) {
       let duplicateError = new Error(
-          `There already exists a company with handle '${data.handle}`);
+          `There already exists a company with handle '${data.handle}'`);
       duplicateError.status = 409; // 409 Conflict
       throw duplicateError
     }
