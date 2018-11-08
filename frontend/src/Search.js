@@ -12,18 +12,26 @@ class Search extends Component {
 
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleSubmit(evt) {
+    evt.preventDefault();
+    // we have a function called search, and a string called search
+    this.props.handleSearch(this.state.search);
   }
 
   // control input
   handleChange(evt) {
     this.setState({ [evt.target.name]: evt.target.value })
+    this.props.handleSearch(this.state.search);
   }
 
   // prevent default and call search function passed from 
   // parent with search param
   handleClick(evt) {
     evt.preventDefault();
-    this.props.search(this.state.search);
+    this.props.handleSearch(this.state.search);
   }
 
   render() {
@@ -43,7 +51,7 @@ class Search extends Component {
 
     // );
     return (
-      <Form inline className="Search my-4 row justify-content-center">
+      <Form onSubmit={this.handleSubmit} inline className="Search my-4 row justify-content-center">
         <Input
           type="text"
           id="search"
