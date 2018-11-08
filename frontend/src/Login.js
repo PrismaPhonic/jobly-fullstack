@@ -3,6 +3,8 @@ import { Form, Input, Button, ButtonGroup, Alert } from 'reactstrap';
 import { Redirect } from 'react-router-dom';
 import './Login.css';
 
+const MIN_PASSWORD_LENGTH = 5;
+
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -35,15 +37,21 @@ class Login extends Component {
     evt.preventDefault();
     const { username, password, first_name, last_name, email } = this.state;
 
-    // Are we logging in or signing up?
-    let resp;
-    if (this.state.showSignup) {
-      resp = await this.props.register({ username, password, first_name, last_name, email });
+    // if password is not long enough set error on state
+    if (password.length < MIN_PASSWORD_LENGTH) {
+      this.setState({errors: ["Password must at least 5 characters in legnth"]});
     } else {
-      resp = await this.props.authenticate({ username, password });
+      // Are we logging in or signing up?
+      let resp;
+      if (this.state.showSignup) {
+        resp = await this.props.register({ username, password, first_name, last_name, email });
+      } else {
+        resp = await this.props.authenticate({ username, password });
+      }
+      // if we got back an array of errors, let's set state to alert user
+      if (resp.errors)
+        this.setState({ errors: resp.errors });
     }
-    // if we got back an array of errors, let's set state to alert user
-    if (resp.errors) this.setState({ errors: resp.errors });
   }
 
   // Control input fields

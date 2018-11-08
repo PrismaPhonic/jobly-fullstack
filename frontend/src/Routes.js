@@ -14,13 +14,13 @@ class Routes extends Component {
       <Container className="Routes justify-content-center pt-3">
         <Switch>
           <Route exact path="/"
-            render={() => <Home />} />
+            render={() => <Home currentUser={this.props.currentUser} />} />
           <Route exact path="/companies"
-            render={() => <Companies />} />
+            render={() => <Companies currentUser={this.props.currentUser} />} />
           <Route exact path="/companies/:handle"
-            render={props => <Company {...props} />} />
+            render={props => <Company {...props} currentUser={this.props.currentUser} />} />
           <Route exact path="/jobs"
-            render={() => <Jobs />} />
+            render={() => <Jobs currentUser={this.props.currentUser} />} />
           <Route exact path="/profile"
             render={() => <Profile currentUser={this.props.currentUser} />} />
           <Route exact path="/login"
