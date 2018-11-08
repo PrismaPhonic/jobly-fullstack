@@ -8,16 +8,16 @@ class Companies extends Component {
   constructor(props) {
     super(props);
     this.state = { companies: [] };
-    // this.searchCompanies = this.searchCompanies.bind(this);
   }
 
+  /** make get request to /companies */
   async componentDidMount() {
-    /** make get request to /companies */
     let companies = await JoblyApi.getCompanies();
 
     this.setState({ companies });
   }
 
+  // get companies filtered by search value
   searchCompanies = async (search) => {
     let companies = await JoblyApi.getCompanies(search);
     this.setState({ companies });

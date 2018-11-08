@@ -13,11 +13,13 @@ class Search extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-
+  // control input
   handleChange(evt) {
     this.setState({ [evt.target.name]: evt.target.value })
   }
 
+  // prevent default and call search function passed from 
+  // parent with search param
   handleClick(evt) {
     evt.preventDefault();
     this.props.search(this.state.search);

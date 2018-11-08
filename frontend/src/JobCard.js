@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import './JobCard.css';
 
 class JobCard extends Component {
+  // Displays a card about a job and a button to apply for it
   render() {
     let { title, salary, equity } = this.props.job;
     return (

@@ -17,23 +17,32 @@ class Login extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  // Handles login and signup button and flips state
   handleClick(show) {
     this.setState({
       showSignup: show
     })
   }
 
+  // Handle form submission gracefully
+  handleSubmit(evt) {
+    evt.preventDefault();
+  }
+
+  // Control input fields
   handleChange(evt) {
     this.setState({ [evt.target.name]: evt.target.value })
   }
 
   render() {
+    // Renders username and password input fields regardless,
+    // and if showSignup is true, shows additional signup fields
     return (
       <div className="Login">
         <br></br>
         <button onClick={(evt) => this.handleClick(false)}>Login</button>
         <button onClick={(evt) => this.handleClick(true)}>Signup</button>
-        <form className="LoginSignupForm">
+        <form className="LoginSignupForm" onSubmit={this.handleSubmit}>
           <br />
           <label htmlFor="username">Username</label>
           <input id="username" name="username"

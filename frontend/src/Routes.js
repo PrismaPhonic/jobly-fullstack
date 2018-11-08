@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Home from './Home';
 import Companies from './Companies';
+import Company from './Company';
 import Jobs from './Jobs';
 import Profile from './Profile';
 import Login from './Login';
+
 
 
 class Routes extends Component {
@@ -16,6 +18,8 @@ class Routes extends Component {
             render={() => <Home />} />
           <Route exact path="/companies"
             render={() => <Companies />} />
+          <Route exact path="/companies/:handle"
+            render={props => <Company {...props} />} />
           <Route exact path="/jobs"
             render={() => <Jobs />} />
           <Route exact path="/profile"

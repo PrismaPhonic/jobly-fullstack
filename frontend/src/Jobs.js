@@ -12,14 +12,14 @@ class Jobs extends Component {
     this.state = { jobs: [] };
   }
 
+  /** get all jobs on mount */
   async componentDidMount() {
-    /** make get request to /jobs */
     let jobs = await JoblyApi.getJobs();;
     this.setState({ jobs });
   }
 
+  /** get list of filtered jobs and update state */
   searchJobs = async (search) => {
-    /** make get request to /jobs */
     let jobs = await JoblyApi.getJobs(search);
     this.setState({ jobs });
   }
