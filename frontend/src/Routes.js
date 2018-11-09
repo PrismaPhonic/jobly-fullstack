@@ -4,6 +4,7 @@ import Home from './Home';
 import Companies from './Companies';
 import Company from './Company';
 import Jobs from './Jobs';
+import Applications from './Applications';
 import Profile from './Profile';
 import Login from './Login';
 import { Container } from 'reactstrap';
@@ -35,6 +36,17 @@ class Routes extends Component {
                   currentUser={this.props.currentUser}
                   applications={this.props.applications}
                   apply={this.props.apply} />
+              )
+            }
+            } />
+
+          <Route exact path="/applications"
+            render={() => {
+              return (
+                <Applications
+                  currentUser={this.props.currentUser}
+                  applications={this.props.applications}
+                   />
               )
             }
             } />

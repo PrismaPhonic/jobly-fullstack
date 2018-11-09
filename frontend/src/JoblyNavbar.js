@@ -26,6 +26,9 @@ class JoblyNavbar extends Component {
                 <NavLink className="nav-link" to='/jobs'>Jobs</NavLink>
               </NavItem>
               <NavItem>
+                <NavLink className="nav-link" to='/applications'>My Applications</NavLink>
+              </NavItem>
+              <NavItem>
                 <NavLink className="nav-link" to='/profile'>Profile</NavLink>
               </NavItem>
               <NavItem>
