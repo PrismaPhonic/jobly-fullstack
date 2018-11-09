@@ -31,9 +31,13 @@ class Jobs extends Component {
     this.setState({ jobs });
   }
 
-  handleClick = async (id) => {
+
+  /** 
+   * click handler passed as prop to JobCard button to apply for a job 
+   * sets a list of job ids to an array of applications on state
+   */
+  applyForJob = async (id) => {
     try {
-      console.log(id);
       let resp = await JoblyApi.applyForJob(id);
       if (!resp.message) throw new Error('could not apply for that job')
       // here we set state because no error 
@@ -57,7 +61,14 @@ class Jobs extends Component {
     return (
       <div className="Jobs">
         <Search handleSearch={this.searchJobs} />
-        {this.state.jobs.map(job => <JobCard apply={this.handleClick} key={job.id} job={job} applied={(this.state.applications.includes(job.id))} />)}
+        {this.state.jobs.map(job => {
+          return (
+            <JobCard 
+              apply={this.applyForJob} 
+              key={job.id} job={job} 
+              applied={(this.state.applications.includes(job.id))} />
+          );
+        })}
       </div>
     );
   }
