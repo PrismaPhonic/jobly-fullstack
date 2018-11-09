@@ -37,7 +37,13 @@ class Companies extends Component {
     }
   }
 
+  /** 
+   * Render search bar and list of companies
+   * If no current user, or if loading, or if error
+   * then render page accordingly
+   */
   render() {
+    /** Is there a way to not repeat the <Search> component like concatenate JSX? */
     if (this.props.currentUser === null) return <Redirect to='/login' />
     if (this.state.error) return (
       <div><Search handleSearch={this.searchCompanies} />

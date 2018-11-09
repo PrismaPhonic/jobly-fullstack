@@ -15,6 +15,7 @@ class Profile extends Component {
     }
   }
 
+  /** Updates user details on form submit and catches errors */
   handleSubmit = async (evt) => {
     evt.preventDefault();
     const resp = await JoblyApi.updateUser(this.state);

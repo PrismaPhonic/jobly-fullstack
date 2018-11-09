@@ -16,8 +16,10 @@ class Routes extends Component {
         <Switch>
           <Route exact path="/"
             render={() => <Home currentUser={this.props.currentUser} />} />
+            
           <Route exact path="/companies"
             render={() => <Companies currentUser={this.props.currentUser} />} />
+
           <Route exact path="/companies/:handle"
             render={props => {
               return (
@@ -29,6 +31,7 @@ class Routes extends Component {
               )
             }
             } />
+
           <Route exact path="/jobs"
             render={() => {
               return (
@@ -50,8 +53,10 @@ class Routes extends Component {
               )
             }
             } />
+
           <Route exact path="/profile"
             render={() => <Profile currentUser={this.props.currentUser} />} />
+
           <Route exact path="/login"
             render={() => {
               return (
