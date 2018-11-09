@@ -31,7 +31,7 @@ class Companies extends Component {
     try {
       let companies = await JoblyApi.getCompanies(search);
       if (companies.length === 0) throw new Error('Your search did not return any companies')
-      this.setState({ companies, loading: false });
+      this.setState({ companies, loading: false, error: false });
     } catch (err) {
       this.setState({ error: err.message })
     }
@@ -39,7 +39,10 @@ class Companies extends Component {
 
   render() {
     if (this.props.currentUser === null) return <Redirect to='/login' />
-    if (this.state.error) return <h1>{this.state.error}</h1>
+    if (this.state.error) return (
+      <div><Search handleSearch={this.searchCompanies} />
+      <h1>{this.state.error}</h1></div>
+    );
     if (this.state.loading) return (
       <div><Search handleSearch={this.searchCompanies} />
         <h3>Loading...</h3></div>

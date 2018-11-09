@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { Button, Form, Input } from 'reactstrap'
 import './Search.css';
+import _ from 'lodash';
+
+
 
 class Search extends Component {
   constructor(props) {
@@ -23,7 +25,11 @@ class Search extends Component {
 
   // control input and filter results as letters are typed
   handleChange(evt) {
-    this.setState({ [evt.target.name]: evt.target.value }) 
+    this.setState({ [evt.target.name]: evt.target.value }, () => {
+      /** run a search query only once every 250 milliseconds */
+      const handleSearch = this.props.handleSearch(this.state.search);
+      _.debounce(() => handleSearch, 250,)();
+    }) 
   }
 
   // prevent default and call search function passed from 
