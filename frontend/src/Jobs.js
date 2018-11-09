@@ -20,7 +20,8 @@ class Jobs extends Component {
   /** get all jobs on mount */
   async componentDidMount() {
     const jobs = await JoblyApi.getJobs();
-    const applications = await JoblyApi.getApplications(this.props.currentUser)
+    const applicationObjs = await JoblyApi.getApplications(this.props.currentUser);
+    const applications = applicationObjs.map(appObj => appObj.job_id);
     this.setState({ jobs, applications, loading: false });
   }
 
@@ -28,6 +29,22 @@ class Jobs extends Component {
   searchJobs = async (search) => {
     const jobs = await JoblyApi.getJobs(search);
     this.setState({ jobs });
+  }
+
+  handleClick = async (id) => {
+    try {
+      console.log(id);
+      let resp = await JoblyApi.applyForJob(id);
+      if (!resp.message) throw new Error('could not apply for that job')
+      // here we set state because no error 
+      this.setState({
+        applications: [...this.state.applications, id]
+      })
+    } catch (err) {
+      this.setState({
+        error: err
+      })
+    }
   }
 
   render() {
@@ -40,7 +57,7 @@ class Jobs extends Component {
     return (
       <div className="Jobs">
         <Search handleSearch={this.searchJobs} />
-        {this.state.jobs.map(job => <JobCard key={job.id} job={job} />)}
+        {this.state.jobs.map(job => <JobCard apply={() => this.handleClick(job.id)} key={job.id} job={job} applied={(this.state.applications.includes(job.id))} />)}
       </div>
     );
   }

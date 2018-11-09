@@ -12,18 +12,6 @@ class JobCard extends Component {
     }
   }
 
-  handleClick = async (evt) => {
-    try {
-      const id = this.props.job.id;
-      let resp = await JoblyApi.applyForJob(id);
-      if (!resp.message) throw new Error('could not apply for that job')
-    } catch (err) {
-      this.setState({
-        error: err
-      })
-    }
-  }
-
   // Displays a card about a job and a button to apply for it
   render() {
     let { title, salary, equity } = this.props.job;
@@ -37,7 +25,7 @@ class JobCard extends Component {
         {this.state.error ?
           <Alert>{this.state.error}</Alert> :
           ''}
-        <Button color="primary">Apply</Button>
+        <Button color="primary" onClick={this.apply} disabled={this.props.applied}>Apply</Button>
       </Card>
     );
   }
