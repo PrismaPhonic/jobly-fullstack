@@ -36,8 +36,8 @@ class App extends Component {
     const token = localStorage.getItem('token');
     if (token) {
       await this.setCurrentUser(token);
-      this.setState({ loading: false });
     }
+    this.setState({ loading: false });
   }
 
   /** 
@@ -127,8 +127,7 @@ class App extends Component {
             register={this.register}
             applications={this.state.applications}
             apply={this.applyForJob}
-          /> :
-          ''
+          /> : ''
         }
 
       </div>
