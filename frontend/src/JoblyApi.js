@@ -1,7 +1,10 @@
 import axios from 'axios';
 
 const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3001";
+<<<<<<< HEAD
 
+=======
+>>>>>>> 105b12832e8b6fe72ea659a3efda7d048ef595cd
 
 class JoblyApi {
   static async request(endpoint, params = {}, verb = "get") {
