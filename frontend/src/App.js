@@ -31,7 +31,7 @@ class App extends Component {
       loading: true
     }
   }
-
+  
   async componentDidMount() {
     const token = localStorage.getItem('token');
     if (token) {
@@ -89,7 +89,14 @@ class App extends Component {
     // PUT REQUEST FOR APPLICATIONS HERE?
     // seems related and then we only have one set state
     const applicationObjs = await JoblyApi.getApplications(currentUser);
-    const applications = applicationObjs.map(appObj => appObj.job_id);
+    const applications = applicationObjs.map(appObj => { 
+      return {
+        id: appObj.job_id,
+        title: appObj.title,
+        company: appObj.company,
+        state: appObj.state
+      }
+    });
 
     this.setState({ currentUser, applications });
   }
@@ -98,13 +105,13 @@ class App extends Component {
   * click handler passed as prop to JobCard button to apply for a job 
   * sets a list of job ids to an array of applications on state
   */
-  applyForJob = async (id) => {
+  applyForJob = async (job) => {
     try {
-      let resp = await JoblyApi.applyForJob(id);
+      let resp = await JoblyApi.applyForJob(job.id);
       if (!resp.message) throw new Error('could not apply for that job')
       // here we set state because no error 
       this.setState({
-        applications: [...this.state.applications, id]
+        applications: [...this.state.applications, job]
       })
     } catch (err) {
       this.setState({
@@ -118,7 +125,7 @@ class App extends Component {
     // the user is already logged in
     return (
       <div className="App">
-        {/* <pre>{JSON.stringify(this.props,null,4)}</pre> */}
+        {/* <pre>{JSON.stringify(this.state,null,4)}</pre> */}
         <JoblyNavbar logout={this.logout} currentUser={this.state.currentUser} />
         {!this.state.loading ?
           <Routes
