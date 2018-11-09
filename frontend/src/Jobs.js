@@ -31,7 +31,6 @@ class Jobs extends Component {
     this.setState({ jobs });
   }
 
-
   /** 
    * click handler passed as prop to JobCard button to apply for a job 
    * sets a list of job ids to an array of applications on state
@@ -63,9 +62,9 @@ class Jobs extends Component {
         <Search handleSearch={this.searchJobs} />
         {this.state.jobs.map(job => {
           return (
-            <JobCard 
-              apply={this.applyForJob} 
-              key={job.id} job={job} 
+            <JobCard
+              apply={this.applyForJob}
+              key={job.id} job={job}
               applied={(this.state.applications.includes(job.id))} />
           );
         })}
