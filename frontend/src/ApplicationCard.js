@@ -4,7 +4,7 @@ import JoblyApi from './JoblyApi';
 import { Alert, Button, Card, CardTitle, CardBody } from 'reactstrap';
 import './ApplicationCard.css';
 
-class JobCard extends Component {
+class ApplicationCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -18,9 +18,10 @@ class JobCard extends Component {
     return (
       <Card className="ApplicationCard">
       <pre>{JSON.stringify(this.props,null,4)}</pre>
-        <CardTitle>title</CardTitle>
+        <CardTitle>{this.props.application.title}</CardTitle>
         <CardBody>
-          <p>body</p>
+          <p>{this.props.application.company}</p>
+          <Alert>{this.props.application.state}</Alert>
         </CardBody>
         {this.state.error ?
           <Alert>{this.state.error}</Alert> :
@@ -33,4 +34,4 @@ class JobCard extends Component {
   }
 }
 
-export default JobCard;
+export default ApplicationCard;

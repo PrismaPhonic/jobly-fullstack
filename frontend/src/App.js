@@ -93,7 +93,8 @@ class App extends Component {
       return {
         id: appObj.job_id,
         title: appObj.title,
-        company: appObj.company
+        company: appObj.company,
+        state: appObj.state
       }
     });
 
@@ -124,7 +125,7 @@ class App extends Component {
     // the user is already logged in
     return (
       <div className="App">
-        <pre>{JSON.stringify(this.state,null,4)}</pre>
+        {/* <pre>{JSON.stringify(this.state,null,4)}</pre> */}
         <JoblyNavbar logout={this.logout} currentUser={this.state.currentUser} />
         {!this.state.loading ?
           <Routes
