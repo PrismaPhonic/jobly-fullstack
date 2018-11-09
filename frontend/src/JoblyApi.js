@@ -20,13 +20,15 @@ class JoblyApi {
     } else if (verb === "patch") {
       q = axios.patch(
         `${BASE_URL}/${endpoint}`, { _token, ...params });
-    } else if (verb === "delete") {
+    } 
+    else if (verb === "delete") {
       q = axios.delete(
-        `${BASE_URL}/${endpoint}`, { _token, ...params });
+        `${BASE_URL}/${endpoint}`, { params: { _token, ...params } });
     }
 
     try {
-      return (await q).data;
+      let data = (await q).data;
+      return data;
     } catch (err) {
       console.error("API Error:", err.response);
       let message = err.response.data.message;
