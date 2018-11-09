@@ -16,7 +16,7 @@ class Routes extends Component {
         <Switch>
           <Route exact path="/"
             render={() => <Home currentUser={this.props.currentUser} />} />
-            
+
           <Route exact path="/companies"
             render={() => <Companies currentUser={this.props.currentUser} />} />
 
@@ -49,7 +49,8 @@ class Routes extends Component {
                 <Applications
                   currentUser={this.props.currentUser}
                   applications={this.props.applications}
-                   />
+                  deleteApplication={this.props.deleteApplication}
+                />
               )
             }
             } />

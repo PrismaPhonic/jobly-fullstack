@@ -20,6 +20,9 @@ class JoblyApi {
     } else if (verb === "patch") {
       q = axios.patch(
         `${BASE_URL}/${endpoint}`, { _token, ...params });
+    } else if (verb === "delete") {
+      q = axios.delete(
+        `${BASE_URL}/${endpoint}`, { _token, ...params });
     }
 
     try {
@@ -73,38 +76,44 @@ class JoblyApi {
 
   /** get a list of companies */
   static async getCompanies(search) {
-    let res = await this.request(`companies`, { search });
+    const res = await this.request(`companies`, { search });
     return res.companies;
   }
 
   /** get a company by handle */
   static async getCompany(handle) {
-    let res = await this.request(`companies/${handle}`);
+    const res = await this.request(`companies/${handle}`);
     return res.company;
   }
 
   /** get a list of jobs */
   static async getJobs(search) {
-    let res = await this.request(`jobs`, { search });
+    const res = await this.request(`jobs`, { search });
     return res.jobs;
   }
 
   /** get a specific jobs */
   static async getJob(id) {
-    let res = await this.request(`jobs/${id}`);
+    const res = await this.request(`jobs/${id}`);
     return res.job;
   }
 
   /** apply for a job by it's id */
   static async applyForJob(id) {
-    let res = await this.request(`jobs/${id}/apply`, {}, 'post');
+    const res = await this.request(`jobs/${id}/apply`, {}, 'post');
     return res
   }
 
   /** get list of jobs user has applied to */
   static async getApplications({ username }) {
-    let res = await this.request(`users/${username}/jobs-applied-to`);
+    const res = await this.request(`users/${username}/jobs-applied-to`);
     return res.jobsAppliedTo;
+  }
+
+  /** delete an application based on an id */
+  static async deleteApplication(id) {
+    const res = await this.request(`jobs/${id}/apply`, {}, 'delete')
+    return res;
   }
 }
 

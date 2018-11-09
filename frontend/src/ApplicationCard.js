@@ -10,12 +10,17 @@ class ApplicationCard extends Component {
     }
   }
 
+  handleClick = (evt) => {
+    evt.preventDefault();
+    this.props.deleteApplication(this.props.application.id)
+  }
+
   // Displays a card about a job and a button to apply for it
   render() {
     // let { title, salary, equity } = this.props.job;
     return (
       <Card className="ApplicationCard">
-      {/* <pre>{JSON.stringify(this.props,null,4)}</pre> */}
+        {/* <pre>{JSON.stringify(this.props,null,4)}</pre> */}
         <CardTitle>{this.props.application.title}</CardTitle>
         <CardBody>
           <p>{this.props.application.company}</p>
@@ -24,9 +29,11 @@ class ApplicationCard extends Component {
         {this.state.error ?
           <Alert>{this.state.error}</Alert> :
           ''}
-        <Button 
-          color="danger" 
-          >Delete Application</Button>
+        <Button
+          color="danger"
+          onClick={this.handleClick} >
+          Delete Application
+          </Button>
       </Card>
     );
   }
