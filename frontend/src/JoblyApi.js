@@ -94,6 +94,18 @@ class JoblyApi {
     let res = await this.request(`jobs/${id}`);
     return res.job;
   }
+
+  /** apply for a job by it's id */
+  static async applyForJob(id) {
+    let res = await this.request(`jobs/${id}/apply`, {}, 'post');
+    return res
+  }
+
+  /** get list of jobs user has applied to */
+  static async getApplications({ username }) {
+    let res = await this.request(`users/${username}/jobs-applied-to`);
+    return res.jobsAppliedTo;
+  }
 }
 
 export default JoblyApi;

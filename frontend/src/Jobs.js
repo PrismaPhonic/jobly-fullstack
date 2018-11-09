@@ -9,8 +9,9 @@ class Jobs extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { 
+    this.state = {
       jobs: [],
+      applications: [],
       loading: true,
       error: null
     };
@@ -18,8 +19,9 @@ class Jobs extends Component {
 
   /** get all jobs on mount */
   async componentDidMount() {
-    const jobs = await JoblyApi.getJobs();;
-    this.setState({ jobs, loading: false });
+    const jobs = await JoblyApi.getJobs();
+    const applications = await JoblyApi.getApplications(this.props.currentUser)
+    this.setState({ jobs, applications, loading: false });
   }
 
   /** get list of filtered jobs and update state */
@@ -33,7 +35,7 @@ class Jobs extends Component {
     if (this.state.error) return <h1>{this.state.error}</h1>
     if (this.state.loading) return (
       <div><Search handleSearch={this.searchJobs} />
-      <h3>Loading...</h3></div>
+        <h3>Loading...</h3></div>
     );
     return (
       <div className="Jobs">
