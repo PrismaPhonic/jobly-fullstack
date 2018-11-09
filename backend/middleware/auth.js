@@ -2,7 +2,7 @@
 
 
 const jwt = require("jsonwebtoken");
-const {SECRET} = require("../config");
+const { SECRET } = require("../config");
 
 
 /** Middleware to use when they must provide a valid token.
@@ -71,12 +71,35 @@ function adminRequired(req, res, next) {
  *
  */
 
-function ensureCorrectUser(req, res, next) {
+async function ensureCorrectUser(req, res, next) {
   try {
     const tokenStr = req.body._token || req.query._token;
 
+    console.log('tokenstr:', tokenStr);
+
     let token = jwt.verify(tokenStr, SECRET);
+
+    const job_id = req.params.id;
+
     req.username = token.username;
+    // if job id in params, then check if the username
+    // matches the user who submitted the application
+    // if there's a match, move on, otherwise error
+    if (job_id) {
+      let res = await db.query(`
+        SELECT username 
+            FROM applications 
+            WHERE job_id = $1
+            and username=$2`,
+        [job_id, token.username]);
+
+      const username = res.rows[0];
+      if (token.username === username) {
+        return next();
+      }
+
+      throw new Error()
+    }
 
     if (token.username === req.params.username) {
       return next();

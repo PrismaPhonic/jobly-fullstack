@@ -31,7 +31,7 @@ class App extends Component {
       loading: true
     }
   }
-  
+
   async componentDidMount() {
     const token = localStorage.getItem('token');
     if (token) {
@@ -89,7 +89,7 @@ class App extends Component {
     // PUT REQUEST FOR APPLICATIONS HERE?
     // seems related and then we only have one set state
     const applicationObjs = await JoblyApi.getApplications(currentUser);
-    const applications = applicationObjs.map(appObj => { 
+    const applications = applicationObjs.map(appObj => {
       return {
         id: appObj.job_id,
         title: appObj.title,
@@ -102,9 +102,32 @@ class App extends Component {
   }
 
   /** 
-  * click handler passed as prop to JobCard button to apply for a job 
-  * sets a list of job ids to an array of applications on state
+  * click handler passed as prop to JobCard button to delete a job application 
+  * removes job from list of applications in App.js by setting state
   */
+  deleteApplication = async (id) => {
+    try {
+      let resp = await JoblyApi.deleteApplication(id);
+      if (!resp.message) throw new Error('could not delete that job!')
+
+      // find index of application in array
+      const idx = this.state.applications.findIndex(application => application.id === id);
+
+      // remove application from list here
+      this.setState({
+        applications: [...this.state.applications.slice(0, idx), ...this.state.applications.slice(idx + 1)]
+      })
+    } catch (err) {
+      this.setState({
+        error: err
+      })
+    }
+  }
+
+  /** 
+* click handler passed as prop to JobCard button to apply for a job 
+* sets a list of job ids to an array of applications on state
+*/
   applyForJob = async (job) => {
     try {
       let resp = await JoblyApi.applyForJob(job.id);
@@ -120,6 +143,8 @@ class App extends Component {
     }
   }
 
+
+
   render() {
     // let's make sure we don't render routes until we have checked if 
     // the user is already logged in
@@ -134,6 +159,7 @@ class App extends Component {
             register={this.register}
             applications={this.state.applications}
             apply={this.applyForJob}
+            deleteApplication={this.deleteApplication}
           /> : ''
         }
 
