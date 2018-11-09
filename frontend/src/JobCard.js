@@ -25,7 +25,11 @@ class JobCard extends Component {
         {this.state.error ?
           <Alert>{this.state.error}</Alert> :
           ''}
-        <Button color="primary" onClick={this.apply} disabled={this.props.applied}>Apply</Button>
+        <Button 
+          color="primary" 
+          onClick={() => this.props.apply(this.props.job.id)} 
+          disabled={this.props.applied}>
+          {this.props.applied ? "Applied" : "Apply"}</Button>
       </Card>
     );
   }

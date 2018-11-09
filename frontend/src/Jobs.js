@@ -57,7 +57,7 @@ class Jobs extends Component {
     return (
       <div className="Jobs">
         <Search handleSearch={this.searchJobs} />
-        {this.state.jobs.map(job => <JobCard apply={() => this.handleClick(job.id)} key={job.id} job={job} applied={(this.state.applications.includes(job.id))} />)}
+        {this.state.jobs.map(job => <JobCard apply={this.handleClick} key={job.id} job={job} applied={(this.state.applications.includes(job.id))} />)}
       </div>
     );
   }
