@@ -13,7 +13,14 @@ class User {
 
   static async getJobsAppliedTo(username) {
     const result = await db.query(
-      `SELECT job_id, state FROM applications WHERE username=$1
+      `SELECT job_id, 
+      jobs.title AS title, 
+      companies.name AS company, 
+      state 
+      FROM applications 
+      JOIN jobs ON jobs.id=job_id 
+      JOIN companies ON jobs.company_handle=companies.handle 
+      WHERE username=$1
           `, [username]);
 
     return result.rows;
