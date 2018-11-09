@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-// import { Link } from 'react-router-dom';
 import './JobCard.css';
-import JoblyApi from './JoblyApi';
 import { Alert, Button, Card, CardTitle, CardBody } from 'reactstrap';
 
 class JobCard extends Component {

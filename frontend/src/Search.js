@@ -3,8 +3,6 @@ import { Button, Form, Input } from 'reactstrap'
 import './Search.css';
 import _ from 'lodash';
 
-
-
 class Search extends Component {
   constructor(props) {
     super(props);
@@ -17,6 +15,7 @@ class Search extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  /** Search when form is submitted */
   handleSubmit(evt) {
     evt.preventDefault();
     // we have a function called search, and a string called search
@@ -27,8 +26,8 @@ class Search extends Component {
   handleChange(evt) {
     this.setState({ [evt.target.name]: evt.target.value }, () => {
       /** run a search query only once every 250 milliseconds */
-      const handleSearch = this.props.handleSearch(this.state.search);
-      _.debounce(() => handleSearch, 250,)();
+      const handleSearch = this.props.handleSearch;
+      _.debounce(() => handleSearch(this.state.search), 250)();
     }) 
   }
 
