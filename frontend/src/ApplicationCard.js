@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-// import { Link } from 'react-router-dom';
-import JoblyApi from './JoblyApi';
 import { Alert, Button, Card, CardTitle, CardBody } from 'reactstrap';
 import './ApplicationCard.css';
 
@@ -17,7 +15,7 @@ class ApplicationCard extends Component {
     // let { title, salary, equity } = this.props.job;
     return (
       <Card className="ApplicationCard">
-      <pre>{JSON.stringify(this.props,null,4)}</pre>
+      {/* <pre>{JSON.stringify(this.props,null,4)}</pre> */}
         <CardTitle>{this.props.application.title}</CardTitle>
         <CardBody>
           <p>{this.props.application.company}</p>

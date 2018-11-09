@@ -105,13 +105,13 @@ class App extends Component {
   * click handler passed as prop to JobCard button to apply for a job 
   * sets a list of job ids to an array of applications on state
   */
-  applyForJob = async (id) => {
+  applyForJob = async (job) => {
     try {
-      let resp = await JoblyApi.applyForJob(id);
+      let resp = await JoblyApi.applyForJob(job.id);
       if (!resp.message) throw new Error('could not apply for that job')
       // here we set state because no error 
       this.setState({
-        applications: [...this.state.applications, id]
+        applications: [...this.state.applications, job]
       })
     } catch (err) {
       this.setState({
