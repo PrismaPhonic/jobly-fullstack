@@ -6,6 +6,9 @@ import './bootstrap.min.css'
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+// Note: to set production for heroku, use:
+// heroku config:set NODE_ENV=production
+
 ReactDOM.render(
   <BrowserRouter>
     <App />

@@ -13,12 +13,15 @@ const PORT = +process.env.PORT || 3001;
 // - in testing, 'jobly-test'
 // - else: 'jobly'
 
+// Note: to set production for heroku, use:
+// heroku config:set NODE_ENV=production
+
 let DB_URI;
 
 if (process.env.NODE_ENV === "test") {
   DB_URI = "jobly-test";
 } else {
-  DB_URI  = process.env.DATABASE_URL || 'jobly';
+  DB_URI = process.env.DATABASE_URL || 'jobly';
 }
 
 
