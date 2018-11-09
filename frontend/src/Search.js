@@ -27,8 +27,8 @@ class Search extends Component {
     this.setState({ [evt.target.name]: evt.target.value }, () => {
       /** run a search query only once every 250 milliseconds */
       const handleSearch = this.props.handleSearch;
-      _.debounce(() => handleSearch(this.state.search), 250)();
-    }) 
+      (_.debounce(() => handleSearch(this.state.search), 250))();
+    })
   }
 
   // prevent default and call search function passed from 
