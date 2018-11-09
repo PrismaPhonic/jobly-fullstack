@@ -48,8 +48,15 @@ class Companies extends Component {
     // );
     return (
       <div className="Applications">
-      {/* <pre>{JSON.stringify(this.props,null,4)}</pre> */}
-        {this.props.applications.map(app => <ApplicationCard key={app.id} application={app} />)}
+        {/* <pre>{JSON.stringify(this.props,null,4)}</pre> */}
+        {this.props.applications.map(app => {
+          return (
+            <ApplicationCard
+              key={app.id}
+              application={app}
+              deleteApplication={this.props.deleteApplication} />
+          )
+        })}
       </div>
     );
   }
