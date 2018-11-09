@@ -11,7 +11,6 @@ class Jobs extends Component {
     super(props);
     this.state = {
       jobs: [],
-      applications: [],
       loading: true,
       error: null
     };
@@ -20,34 +19,13 @@ class Jobs extends Component {
   /** get all jobs on mount */
   async componentDidMount() {
     const jobs = await JoblyApi.getJobs();
-    const applicationObjs = await JoblyApi.getApplications(this.props.currentUser);
-    const applications = applicationObjs.map(appObj => appObj.job_id);
-    this.setState({ jobs, applications, loading: false });
+    this.setState({ jobs, loading: false });
   }
 
   /** get list of filtered jobs and update state */
   searchJobs = async (search) => {
     const jobs = await JoblyApi.getJobs(search);
     this.setState({ jobs });
-  }
-
-  /** 
-   * click handler passed as prop to JobCard button to apply for a job 
-   * sets a list of job ids to an array of applications on state
-   */
-  applyForJob = async (id) => {
-    try {
-      let resp = await JoblyApi.applyForJob(id);
-      if (!resp.message) throw new Error('could not apply for that job')
-      // here we set state because no error 
-      this.setState({
-        applications: [...this.state.applications, id]
-      })
-    } catch (err) {
-      this.setState({
-        error: err
-      })
-    }
   }
 
   render() {
@@ -63,9 +41,9 @@ class Jobs extends Component {
         {this.state.jobs.map(job => {
           return (
             <JobCard
-              apply={this.applyForJob}
+              apply={this.props.apply}
               key={job.id} job={job}
-              applied={(this.state.applications.includes(job.id))} />
+              applied={(this.props.applications.includes(job.id))} />
           );
         })}
       </div>

@@ -27,6 +27,7 @@ class App extends Component {
     super(props);
     this.state = {
       currentUser: null,
+      applications: [],
       loading: true
     }
   }
@@ -84,7 +85,32 @@ class App extends Component {
     const { username } = jwt.decode(token);
     const currentUser = await JoblyApi.getUser(username, token);
     localStorage.setItem('token', token);
-    this.setState({ currentUser });
+
+    // PUT REQUEST FOR APPLICATIONS HERE?
+    // seems related and then we only have one set state
+    const applicationObjs = await JoblyApi.getApplications(currentUser);
+    const applications = applicationObjs.map(appObj => appObj.job_id);
+
+    this.setState({ currentUser, applications });
+  }
+
+  /** 
+  * click handler passed as prop to JobCard button to apply for a job 
+  * sets a list of job ids to an array of applications on state
+  */
+  applyForJob = async (id) => {
+    try {
+      let resp = await JoblyApi.applyForJob(id);
+      if (!resp.message) throw new Error('could not apply for that job')
+      // here we set state because no error 
+      this.setState({
+        applications: [...this.state.applications, id]
+      })
+    } catch (err) {
+      this.setState({
+        error: err
+      })
+    }
   }
 
   render() {
@@ -98,7 +124,10 @@ class App extends Component {
           <Routes
             currentUser={this.state.currentUser}
             authenticate={this.authenticate}
-            register={this.register} /> :
+            register={this.register}
+            applications={this.state.applications}
+            apply={this.applyForJob}
+          /> :
           ''
         }
 
